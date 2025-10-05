@@ -39,23 +39,6 @@ header h1 {
   margin-bottom: 0.5rem;
 }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-nav a {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-}
-
-nav a:hover {
-  color: var(--verde-claro);
-}
-
 /* Main */
 main {
   width: 90dvw;
@@ -125,4 +108,19 @@ footer {
   color: white;
   margin-top: 2rem;
   margin-top: auto;
+}
+
+button {
+  background-color: white;
+  color: var(--negro);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background-color: var(--azul);
 }
