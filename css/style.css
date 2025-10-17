@@ -54,42 +54,91 @@ section {
   margin-bottom: 1.5rem;
 }
 
+/* === GRID PRINCIPAL (página de inicio) === */
+.grid-principal {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  align-items: stretch; /* 🔹 iguala la altura de las tarjetas en la misma fila */
+}
+
+/* Ajustes según tamaño de pantalla */
+@media (max-width: 1200px) {
+  .grid-principal {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .grid-principal {
+    grid-template-columns: 1fr;
+  }
+}
+
 section h2 {
   color: var(--azul);
   margin-bottom: 0.5rem;
 }
 
+/* === TARJETAS === */
 .card-link {
   text-decoration: none;
   color: inherit;
   display: block;
+  height: 100%; /* 🔹 importante para estirarse con el grid */
   margin: 1rem 0;
 }
 
 .card-link article {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* 🔹 todas las tarjetas ocupan la misma altura */
   background: white;
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card-link article:hover {
   transform: scale(1.02);
   cursor: pointer;
 }
-
-.card-link img {
-  aspect-ratio: 24/9;
-  width: 500px;
-  min-width: 75%;
-  max-width: 100%;
-  object-fit: cover;
-  background-color: #e0e0e0;
-  display: block;
-  margin: 1% auto 3%;
+/* Artículo como grid: header / media / contenido */
+.card-link article {
+  display: grid;
+  grid-template-rows: auto 180px 1fr; /* título / imagen / descripción (crece) */
+  gap: 0.8rem;
+  height: 100%;
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Título: ocupa su fila, podemos darle min-height opcional */
+.card-link h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--negro);
+  line-height: 1.2;
+  min-height: 4rem;
+}
+
+/* Imagen dentro de la tarjeta */
+.card-link img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: #e0e0e0;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/* Si la imagen falta */
 .card-link img[alt=""]::before {
   content: "🖼️";
   display: flex;
@@ -98,6 +147,41 @@ section h2 {
   font-size: 2rem;
   color: #666;
 }
+
+/* Descripción con altura uniforme y truncado opcional */
+.card-link p {
+  flex-grow: 1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--negro);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* === GRID DE PÁGINAS ESPECÍFICAS === */
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .case-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.case-grid section:last-child {
+  grid-column: 1 / -1;
+}
+
+.case-grid h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  min-height: 2.4rem;
+}
+
 
 /* Sección de referencias */
 .referencias h2 {
@@ -116,14 +200,18 @@ section h2 {
   max-width: 100%;
 }
 
-.referencias ul li a {
+.referencias a {
   color: var(--azul);
   text-decoration: none;
   display: inline-block;
-  max-width: 100%;
-  white-space: nowrap;       /* Evita que el texto haga salto de línea */
-  overflow: hidden;          /* Oculta lo que sobrepasa */
-  text-overflow: ellipsis;   /* Muestra "..." al final si se corta */
+  max-width: 500px;
+  min-width: 100%;
+  white-space: nowrap;
+  /* Evita que el texto haga salto de línea */
+  overflow: hidden;
+  /* Oculta lo que sobrepasa */
+  text-overflow: ellipsis;
+  /* Muestra "..." al final si se corta */
   vertical-align: bottom;
 }
 
@@ -134,6 +222,8 @@ section h2 {
 
 /* Footer */
 footer {
+  display: grid;
+  grid-column: 1;
   text-align: center;
   padding: 1rem;
   background: var(--verde);
